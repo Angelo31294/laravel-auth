@@ -101,6 +101,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $old_title = $post->title;
+
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('message', "il post $old_title è stato cancellato!");
     }
 }

@@ -29,6 +29,10 @@
                     <td>
                       <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
                       <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
+                      <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                   </tr>
                 @endforeach
