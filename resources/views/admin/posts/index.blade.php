@@ -3,7 +3,14 @@
 @section('content')
     <div class="container">
         <h1>Lista Post</h1>
-
+        @if (session('message'))
+          <div class="alert alert-success">
+            {{session('message')}}
+          </div>
+        @endif
+      <div class="my-4">
+        <a href="{{route('admin.posts.create')}}" class="btn btn-primary">Crea Post</a>
+      </div>
         <table class="table table-striped">
             <thead>
               <tr>
@@ -19,6 +26,9 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->slug }}</td>
+                    <td>
+                      <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
+                    </td>
                   </tr>
                 @endforeach
             </tbody>

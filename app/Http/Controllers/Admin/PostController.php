@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -39,7 +40,16 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->validate();
+
+        return view('admin.post.create');
+
+        $new_post = new Post();
+        $new_post->fill($data);
+        $new_post->slug = Str::slug($new_post->title);
+        $new_post->save();
+
+        return redirect()->route('admin.posts.index')->with('message', 'Post Creato');
     }
 
     /**
@@ -50,7 +60,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**

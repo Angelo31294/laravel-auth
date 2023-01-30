@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         return view('admin.dashboard');
     })->name('dashboard');
     
-    route::resource('posts', PostController::class);
+    route::resource('posts', PostController::class)->parameters(['posts' => 'post:slug']);
 });
 
 require __DIR__.'/auth.php';
