@@ -28,6 +28,7 @@
                     <td>{{ $post->slug }}</td>
                     <td>
                       <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
+                      <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
                     </td>
                   </tr>
                 @endforeach
