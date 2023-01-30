@@ -43,12 +43,13 @@ class PostController extends Controller
     {
         $data = $request->validate();
 
-        $img_path = Storage::disk('public')->put('uploads', $data['cover_image']);
-
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->slug = Str::slug($new_post->title);
-        $new_post->cover_image = $img_path;
+        if( isset($data['cover_image']) ){
+            $img_path = Storage::disk('public')->put('uploads', $data['cover_image']);
+            $new_post->cover_image = $img_path;
+        }
         $new_post->save();
 
         return redirect()->route('admin.posts.index')->with('message', 'Post Creato');
