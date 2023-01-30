@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -42,11 +43,12 @@ class PostController extends Controller
     {
         $data = $request->validate();
 
-        return view('admin.post.create');
+        $img_path = Storage::disk('public')->put('uploads', $data['cover_image']);
 
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->slug = Str::slug($new_post->title);
+        $new_post->cover_image = $img_path;
         $new_post->save();
 
         return redirect()->route('admin.posts.index')->with('message', 'Post Creato');
